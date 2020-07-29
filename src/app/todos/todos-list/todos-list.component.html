@@ -1,0 +1,45 @@
+<div class="todo_item" *ngIf="show.delete != true && show.completed != true && show.rewrite != true"
+     [ngStyle]="{ background: elem.completed ? '#59D849' : null }">
+  <div class="todo_item-count">
+        <span style="cursor: pointer" (click)="plusIndex()">
+          &uArr;
+        </span>
+    {{elem.userId}}
+    <span style="cursor: pointer" (click)="minusIndex()">
+           &dArr;
+        </span>
+  </div>
+  <div class="todo_item-text">
+    <p><span>{{elem.id.hour}}:{{elem.id.minute}}</span><span>{{elem.id.day}}-{{elem.id.month}}-{{elem.id.year}}</span>
+      <span *ngIf="elem.basick" style="margin-left: 10px">Its basick Task</span></p>
+    <h2>{{elem.title}}</h2>
+  </div>
+  <div class="todo_item-func">
+    <span style="cursor: pointer" (click)="completedQuestion()">&#9745;</span>
+    <span style="cursor: pointer" (click)="deleteQuestion()">&#9746;</span>
+    <span style="cursor: pointer" (click)="rewriteQuestion()">&#9998;</span>
+  </div>
+</div>
+
+<div class="delete question" *ngIf="show.delete" [ngStyle]="{ background: elem.completed ? '#59D849' : null }">
+  <h6>Do You want delete this task?</h6>
+  <div>
+    <span style="cursor: pointer" (click)="deleteQuestionYes()">&#9745;</span>
+    <span style="cursor: pointer" (click)="deleteQuestionNo()">&#9746;</span>
+  </div>
+</div>
+<div class="completed question" *ngIf="show.completed" [ngStyle]="{ background: elem.completed ? '#59D849' : null }">
+  <h6>Do You want completed/uncompleted this task?</h6>
+  <div>
+    <span style="cursor: pointer" (click)="completedQuestionYes()">&#9745;</span>
+    <span style="cursor: pointer" (click)="completedQuestionNo()">&#9746;</span>
+  </div>
+</div>
+<div class="rewrite question" *ngIf="show.rewrite" [ngStyle]="{ background: elem.completed ? '#59D849' : null }">
+    <h6>Do You want rewrite this task?</h6>
+    <input type="text" [(ngModel)]="inputRewriteValue">
+    <div>
+      <span style="cursor: pointer" (click)="rewriteQuestionYes()">&#9745;</span>
+      <span style="cursor: pointer" (click)="rewriteQuestionNo()">&#9746;</span>
+    </div>
+</div>

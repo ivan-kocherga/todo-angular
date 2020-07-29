@@ -1,0 +1,42 @@
+<header>
+  <h1>
+    Todo`s
+  </h1>
+  <p>
+    {{realTime | date: 'HH:mm:ss'}}
+  </p>
+</header>
+
+<main>
+  <app-todos-generate></app-todos-generate>
+  <app-todos-sort-search></app-todos-sort-search>
+
+  <ng-template #Alltasks>
+    <div *ngIf="tasks.length != 0; else notTasks">
+      <app-todos-list *ngFor="let elem of tasks; let index = index" [elem]="elem" [index]="index"></app-todos-list>
+    </div>
+  </ng-template>
+
+  <div *ngIf="valueSearchInput != ''; else Alltasks">
+    <ng-container *ngIf="searchTasks.length != 0; else notSearchTask">
+      <app-todos-list *ngFor="let elem of searchTasks; let index = index" [elem]="elem" [index]="index"></app-todos-list>
+    </ng-container>
+    <ng-template #notSearchTask>
+      <div class="notTask">
+        We dont searched task :(
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #notTasks>
+    <div class="notTask">
+      You dont have task :(
+    </div>
+  </ng-template>
+</main>
+
+<footer>
+  <h2>
+    Made by Ivan
+  </h2>
+</footer>

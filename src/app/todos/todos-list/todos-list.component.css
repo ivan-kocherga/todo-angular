@@ -1,0 +1,102 @@
+.todo_item{
+  display: flex;
+  background-color: #f69a73;
+  padding: 30px 50px;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.todo_item-count{
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_item-count span{
+  font-size: 25px;
+}
+
+.todo_item-text{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.todo_item-text h2{
+  margin: 0 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.todo_item-func{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_item-func span:nth-child(2){
+  margin: 0 5px;
+}
+
+.todo_item-func span{
+  font-size:  35px;
+}
+
+.todo_list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo_item-text p span:nth-child(1){
+  margin-right: 10px;
+}
+
+.question{
+  display: flex;
+  flex-direction: column;
+  background-color:  #f69a73;
+  padding: 29.5px 50px;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: center;
+  max-height: 139px;
+}
+
+.question h6{
+  font-size: 25px;
+  text-align: center;
+}
+
+.question div{
+  display: flex;
+  justify-content: center;
+}
+
+.question div span:nth-child(1){
+  margin-right: 10px;
+}
+
+.question div span{
+  font-size: 45px;
+  margin-top: 1px;
+}
+
+.rewrite input{
+  max-width: 200px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  padding: 3px;
+}
+

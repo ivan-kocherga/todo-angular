@@ -1,0 +1,55 @@
+<form class="decor"  [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-left-decoration"></div>
+  <div class="form-right-decoration"></div>
+  <div class="circle"></div>
+  <div class="form-inner">
+    <h3>Sing in</h3>
+    <input type="text" placeholder="Your name or email" formControlName="name_email">
+    <div class="invalid" *ngIf="form.get('name_email').invalid && form.get('name_email').touched">
+      <small *ngIf="form.get('name_email').errors.required">
+        The field name cannot be empty
+      </small>
+      <small *ngIf="form.get('name_email').errors.NameEmail_notequally">
+        The field not equally name or email
+      </small>
+    </div>
+    <input type="password" placeholder="Your password" formControlName="password" #password>
+    <div class="invalid" *ngIf="form.get('password').invalid && form.get('password').touched">
+      <small *ngIf="form.get('password').errors.required">
+        The field name cannot be empty
+      </small>
+      <small *ngIf="form.get('password').errors.minlength">
+        Minimum number of characters {{form.get('password').errors.minlength.requiredLength}} <br/>
+        Your number of characters {{form.get('password').errors.minlength.actualLength}}
+      </small>
+      <small *ngIf="form.get('password').errors.password_notequally">
+        The field not equally password
+      </small>
+    </div>
+    <div class="check-container" style="margin-top: 10px">
+      <p>Show your password?</p>
+      <input type="checkbox" id="cbxShoePassword" style="display: none;">
+      <label for="cbxShoePassword" class="check" (click)="showPassword()">
+        <svg width="18px" height="18px" viewBox="0 0 18 18">
+          <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+          <polyline points="1 9 7 14 15 4"></polyline>
+        </svg>
+      </label>
+    </div>
+    <div class="check-container">
+      <p>To remember me?</p>
+      <input type="checkbox" id="cbxRememberMe" style="display: none;">
+      <label for="cbxRememberMe" class="check" (click)="autoEntrance()">
+        <svg width="18px" height="18px" viewBox="0 0 18 18">
+          <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+          <polyline points="1 9 7 14 15 4"></polyline>
+        </svg>
+      </label>
+    </div>
+    <input type="submit" value="Continue" [disabled]="form.invalid" style="cursor: pointer">
+  </div>
+</form>
+
+
+
+
