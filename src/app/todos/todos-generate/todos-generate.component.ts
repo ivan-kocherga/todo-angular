@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HelpService} from "../../services/help.service";
 import {TaskAppearance, TodosService} from "../../services/todos.service";
 import {DateService} from "../../services/date.service";
@@ -10,14 +10,14 @@ import {DateService} from "../../services/date.service";
 })
 export class TodosGenerateComponent implements OnInit {
 
-  @ViewChild('input') input
+  @ViewChild('input') input: ElementRef
 
   constructor(private help: HelpService,private todos: TodosService, private date: DateService) { }
 
   ngOnInit(): void {
   }
 
-  async generateTask(){
+  async generateTask(): Promise<void>{
     if(this.input.nativeElement.value.trim()){
       const newElem: TaskAppearance = {
         userId: 1,

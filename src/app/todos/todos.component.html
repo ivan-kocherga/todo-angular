@@ -12,7 +12,7 @@
   <app-todos-sort-search></app-todos-sort-search>
 
   <ng-template #Alltasks>
-    <div *ngIf="tasks.length != 0; else notTasks">
+    <div *ngIf="tasks.length != 0">
       <app-todos-list *ngFor="let elem of tasks; let index = index" [elem]="elem" [index]="index"></app-todos-list>
     </div>
   </ng-template>
@@ -28,9 +28,14 @@
     </ng-template>
   </div>
 
-  <ng-template #notTasks>
+  <ng-template *ngIf="tasks.length === 0 && !loadData">
     <div class="notTask">
       You dont have task :(
+    </div>
+  </ng-template>
+  <ng-template *ngIf="tasks.length === 0 && loadData">
+    <div class="notTask">
+      Loading...
     </div>
   </ng-template>
 </main>

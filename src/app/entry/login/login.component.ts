@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {EntryService} from "../../services/entry.service";
@@ -12,22 +12,22 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup
 
-  checkedPassword = false
+  checkedPassword: boolean = false
 
-  @ViewChild('password') password
+  @ViewChild('password') password: ElementRef
 
   private User = JSON.parse(localStorage.getItem('user'))
 
   constructor(private fb: FormBuilder, private router: Router, private entry: EntryService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       name_email: new FormControl('', [Validators.required, this.entry.checkNameEmail(this.User.name, this.User.email)]),
       password: new FormControl('', [Validators.required,  Validators.minLength(8), this.entry.checkPassword(this.User.password)]),
     })
   }
 
-  showPassword(){
+  showPassword(): void {
     this.checkedPassword = !this.checkedPassword;
     if(this.checkedPassword){
       this.password.nativeElement.type = 'text'
@@ -36,13 +36,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  autoEntrance(){
+  autoEntrance(): void {
     this.User.autoEntrance = !this.User.autoEntrance
   }
 
-  submit() {
+  submit(): void {
+    localStorage.setItem('isUserFirstTime', '1')
     localStorage.setItem('user', JSON.stringify(this.User))
-    this.router.navigate(['/todos'])
+    this.router.navigate(['/'])
   }
 
 }

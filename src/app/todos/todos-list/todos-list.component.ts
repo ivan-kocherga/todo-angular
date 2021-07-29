@@ -1,19 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TaskAppearance, TodosService} from "../../services/todos.service";
 
+export interface IShow{
+  delete: boolean,
+  rewrite: boolean,
+  completed: boolean
+}
+
 @Component({
   selector: 'app-todos-list',
   templateUrl: './todos-list.component.html',
   styleUrls: ['./todos-list.component.css']
 })
+
 export class TodosListComponent implements OnInit {
 
   @Input() elem: TaskAppearance
   @Input() index: number
 
-  inputRewriteValue
+  inputRewriteValue: string = ''
 
-  show = {
+  show: IShow = {
     delete: false,
     rewrite: false,
     completed: false
@@ -26,42 +33,42 @@ export class TodosListComponent implements OnInit {
     this.inputRewriteValue = this.elem.title
   }
 
-  plusIndex(){
+  plusIndex(): void {
     this.todos.plusIndexTask(this.index)
   }
-  minusIndex(){
+  minusIndex(): void {
     this.todos.minusIndexTask(this.index)
   }
 
-  deleteQuestion(){
+  deleteQuestion(): void {
     this.show.delete = true
   }
-  deleteQuestionYes(){
+  deleteQuestionYes(): void {
     this.todos.deleteTask(this.index)
   }
-  deleteQuestionNo(){
+  deleteQuestionNo(): void {
     this.show.delete = false
   }
 
-  completedQuestion(){
+  completedQuestion(): void {
     this.show.completed = true
   }
-  completedQuestionYes(){
+  completedQuestionYes(): void {
     this.todos.completedTask(this.index)
     this.show.completed = false
   }
-  completedQuestionNo(){
+  completedQuestionNo(): void {
     this.show.completed = false
   }
 
-  rewriteQuestion(){
+  rewriteQuestion(): void {
     this.show.rewrite = true
   }
-  rewriteQuestionYes(){
+  rewriteQuestionYes(): void {
     this.todos.rewriteTask(this.index, this.inputRewriteValue)
     this.show.rewrite = false
   }
-  rewriteQuestionNo(){
+  rewriteQuestionNo(): void {
     this.show.rewrite = false
   }
 

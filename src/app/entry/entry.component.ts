@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntryComponent implements OnInit {
 
-  localStorageUser = localStorage.getItem('user')
+  localStorageUser: string = localStorage.getItem('user')
 
   constructor() { }
 

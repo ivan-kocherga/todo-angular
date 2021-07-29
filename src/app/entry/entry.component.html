@@ -1,4 +1,4 @@
-<app-login ng *ngIf="localStorageUser != undefined; else register"></app-login>
+<app-login *ngIf="localStorageUser != undefined; else register"></app-login>
 <ng-template #register>
   <app-register></app-register>
 </ng-template>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {DateService} from "./date.service";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HelpService} from "./help.service";
 
 export interface TaskAppearance {
@@ -15,19 +15,22 @@ export interface TaskAppearance {
 @Injectable({
   providedIn: 'root'
 })
+
 export class TodosService {
 
   private tasks: TaskAppearance[] = (localStorage.getItem('tasks')) ? JSON.parse(localStorage.getItem('tasks')) : []
 
-  private stream$ = new BehaviorSubject(this.tasks);
+  private stream$: BehaviorSubject<TaskAppearance[]> = new BehaviorSubject<TaskAppearance[]>(this.tasks);
 
-  private search$ = new BehaviorSubject('')
+  private search$: BehaviorSubject<string> = new BehaviorSubject<string>('')
 
 
-  constructor(private date: DateService,private http: HttpClient, private help: HelpService) {
+  constructor(private date: DateService,
+              private http: HttpClient,
+              private help: HelpService) {
+
     if(this.tasks.length == 0 && localStorage.getItem('basickElementOnce') == undefined){
-      http.get<TaskAppearance[]>('https://jsonplaceholder.typicode.com/todos?_limit=3').subscribe( v => {
-
+      http.get<TaskAppearance[]>('https://jsonplaceholder.typicode.com/todos?_limit=3').subscribe( (v: any[]) => {
         for(let i of v){
           i.id = date.dateGenerate(new Date())
           i.basick = true
@@ -41,34 +44,36 @@ export class TodosService {
         localStorage.setItem('tasks', JSON.stringify(this.tasks))
       })
     }
+
   }
 
-  nextSearch = (v) => {
+  nextSearch(v: string): void {
     this.search$.next(v)
   }
 
-  returnSearch = () => {
+  returnSearch(): Observable<any> {
     return this.search$.asObservable()
   }
 
-   returnStream = () => {
+   returnStream(): Observable<any> {
     return this.stream$.asObservable()
   }
 
-  createTask(obj){
+  createTask(obj: TaskAppearance): void {
     this.tasks.unshift(obj)
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
-  minusIndexTask(indElm){
+  minusIndexTask(indElm: number): void {
     if(this.tasks[indElm].userId > 1){
       this.tasks[indElm].userId -= 1
     }
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
-  plusIndexTask(indElm){
+
+  plusIndexTask(indElm: number): void {
     if(this.tasks[indElm].userId < 10){
       this.tasks[indElm].userId += 1
     }
@@ -76,45 +81,48 @@ export class TodosService {
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
-  deleteTask(indElm){
+  deleteTask(indElm: number): void {
     this.tasks = this.help.remove(this.tasks, indElm)
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
-  completedTask(indElm){
+
+  completedTask(indElm: number): void {
     this.tasks[indElm].completed = !this.tasks[indElm].completed
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
-  rewriteTask(indElm, text){
+
+  rewriteTask(indElm: number, text: string): void {
     this.tasks[indElm].title = text
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
 
-  sortIndex(){
+  sortIndex(): void {
     if(this.tasks[0].userId < this.tasks[this.tasks.length-1].userId){
-      this.tasks.sort(function (a, b) {return b.userId - a.userId})
+      this.tasks.sort( (a, b) => b.userId - a.userId)
     }else {
-      this.tasks.sort(function (a, b) {return a.userId - b.userId})
+      this.tasks.sort( (a, b) => a.userId - b.userId)
     }
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
-  sortDate(){
+
+  sortDate(): void {
     if(this.tasks[0].id.fullDate < this.tasks[this.tasks.length-1].id.fullDate){
-      this.tasks.sort(function (a, b) {return b.id.fullDate - a.id.fullDate})
+      this.tasks.sort( (a, b)  => b.id.fullDate - a.id.fullDate)
     }else {
-      this.tasks.sort(function (a, b) {return a.id.fullDate - b.id.fullDate})
+      this.tasks.sort( (a, b) => a.id.fullDate - b.id.fullDate)
     }
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
   }
-  sortCompleted(){
+  sortCompleted(): void {
     if(this.tasks[0].completed < this.tasks[this.tasks.length-1].completed){
-      this.tasks.sort(function (a, b) {return Number(b.completed) - Number(a.completed)})
+      this.tasks.sort((a, b) => Number(b.completed) - Number(a.completed))
     }else {
-      this.tasks.sort(function (a, b) {return Number(a.completed) - Number(b.completed)})
+      this.tasks.sort((a, b) => Number(a.completed) - Number(b.completed))
     }
     this.stream$.next(this.tasks)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))

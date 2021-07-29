@@ -11,10 +11,13 @@ export class TodosSortSearchComponent implements OnInit {
   tasks: TaskAppearance[]
 
 
-  disable=''
+  disable: string = ''
 
   constructor(private todos: TodosService) {
-    todos.returnStream().subscribe(v => {
+  }
+
+  ngOnInit(): void {
+    this.todos.returnStream().subscribe(v => {
       this.tasks = v
       if(v.length < 2){
         this.disable='disable'
@@ -25,20 +28,17 @@ export class TodosSortSearchComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
-  sortIndex(){
+  sortIndex(): void{
     this.todos.sortIndex()
   }
-  sortDate(){
+  sortDate(): void{
     this.todos.sortDate()
   }
-  sortCompleted(){
+  sortCompleted(): void{
     this.todos.sortCompleted()
   }
 
-  searchTask(e){
+  searchTask(e: any): void {
     this.todos.nextSearch(e.target.value)
   }
 

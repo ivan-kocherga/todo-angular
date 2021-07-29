@@ -1,26 +1,34 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {EntryService} from "../../services/entry.service";
+
+export interface IUser {
+  name: string,
+  email: string,
+  password: string,
+  autoEntrance: boolean
+}
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
 
   form: FormGroup
 
-  checkedPassword = false
-  checkedLogIn = false
+  checkedPassword: boolean = false
+  checkedLogIn: boolean = false
 
-  @ViewChild('password1') password1
-  @ViewChild('password2') password2
+  @ViewChild('password1') password1: ElementRef
+  @ViewChild('password2') password2: ElementRef
 
   constructor(private fb: FormBuilder, private router: Router, private entry: EntryService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.email, Validators.required]),
@@ -29,7 +37,7 @@ export class RegisterComponent implements OnInit {
     }, {validator: this.entry.checkIfMatchingPasswords('password1', 'password2')})
   }
 
-  submit(){
+  submit(): void{
     const formValue = this.form.value
 
     const newUser = {
@@ -41,10 +49,14 @@ export class RegisterComponent implements OnInit {
 
     localStorage.setItem('user', JSON.stringify(newUser))
 
-    this.router.navigate(['/todos'])
+    if(!this.checkedLogIn){
+      localStorage.setItem('isUserFirstTime', '1')
+    }
+
+    this.router.navigate(['/'])
   }
 
-  showPassword(){
+  showPassword(): void{
     this.checkedPassword = !this.checkedPassword;
     if(this.checkedPassword){
       this.password1.nativeElement.type = 'text'
@@ -55,7 +67,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  autoEntrance(){
+  autoEntrance(): void{
     this.checkedLogIn = !this.checkedLogIn;
   }
 

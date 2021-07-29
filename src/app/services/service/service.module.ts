@@ -4,6 +4,8 @@ import {DateService} from "../date.service";
 import {TodosService} from "../todos.service";
 import {HelpService} from "../help.service";
 import {EntryService} from "../entry.service";
+import {IsAuthGuard} from "../is-auth.guard";
+import {IsNotAuthGuard} from "../is-not-auth.guard";
 
 
 
@@ -16,7 +18,9 @@ import {EntryService} from "../entry.service";
     DateService,
     TodosService,
     HelpService,
-    EntryService
+    EntryService,
+    IsAuthGuard,
+    IsNotAuthGuard
   ]
 })
 export class ServiceModule { }

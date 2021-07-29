@@ -9,24 +9,26 @@ import {HelpService} from "../services/help.service";
 })
 export class TodosComponent implements OnInit {
 
-  realTime = new Date()
-
+  realTime: Date = new Date()
   tasks: TaskAppearance[]
+  loadData: boolean = true
 
-  searchTasks
-  valueSearchInput
+  searchTasks: Array<TaskAppearance> = []
+  valueSearchInput: string = ''
 
   constructor(private todo: TodosService, private help: HelpService) {
-    setInterval(() => this.realTime = new Date(), 1000)
-    this.todo.returnStream().subscribe(v => {
-      this.tasks = v
-    })
-    this.todo.returnSearch().subscribe(v => {
-      this.valueSearchInput = v
-      this.searchTasks = help.filterValues(v, this.tasks)
-    })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setInterval(() => this.realTime = new Date(), 1000)
+    this.todo.returnStream().subscribe((v: TaskAppearance[]) => {
+      this.loadData = false
+      this.tasks = v
+    })
+    this.todo.returnSearch().subscribe((v: string) => {
+      this.valueSearchInput = v
+      this.searchTasks = this.help.filterValues(v, this.tasks)
+    })
+  }
 
 }
