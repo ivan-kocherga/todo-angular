@@ -41,7 +41,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    localStorage.setItem('isUserFirstTime', '1')
+    if(this.User.autoEntrance){
+      localStorage.removeItem('isUserFirstTime')
+    }else {
+      localStorage.setItem('isUserFirstTime', '1')
+    }
     localStorage.setItem('user', JSON.stringify(this.User))
     this.router.navigate(['/'])
   }
