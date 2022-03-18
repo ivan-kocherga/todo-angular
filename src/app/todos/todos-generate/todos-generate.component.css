@@ -1,20 +1,19 @@
-.block{
+.block {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
   position: relative;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.inputBlock input[type='text']{
+.inputBlock input[type="text"] {
   margin-right: 10px;
   border: 1px solid #bababa;
   padding: 5px;
   border-radius: 2px;
 }
 
-.inputBlock{
+.inputBlock {
   display: flex;
   flex-direction: column;
 }
-

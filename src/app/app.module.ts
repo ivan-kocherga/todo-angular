@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EntryComponent } from './entry/entry.component';
 import { TodosComponent } from './todos/todos.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {ServiceModule} from "./services/service/service.module";
-import {RegisterComponent} from "./entry/register/register.component";
-import {LoginComponent} from "./entry/login/login.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceModule } from './core/services/service/service.module';
+import { RegisterComponent } from './entry/register/register.component';
+import { LoginComponent } from './entry/login/login.component';
 import { TodosListComponent } from './todos/todos-list/todos-list.component';
 import { TodosGenerateComponent } from './todos/todos-generate/todos-generate.component';
 import { TodosSortSearchComponent } from './todos/todos-sort-search/todos-sort-search.component';
@@ -31,10 +31,9 @@ import { TodosSortSearchComponent } from './todos/todos-sort-search/todos-sort-s
     FormsModule,
     HttpClientModule,
     ServiceModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

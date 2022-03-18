@@ -1,25 +1,25 @@
-.search-sortBlock{
+.search-sortBlock {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.search input{
+.search input {
   margin-bottom: 5px;
   padding: 3px;
 }
 
-.sort{
+.sort {
   text-align: center;
 }
 
-.sort p{
+.sort p {
   margin-bottom: 5px;
 }
 
-.sort div button:nth-child(2){
+.sort div button:nth-child(2) {
   margin: 0 7px;
 }

@@ -1,45 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import {TaskAppearance, TodosService} from "../../services/todos.service";
+import { TaskAppearance, TodosService } from '../../core/services/todos.service';
 
 @Component({
   selector: 'app-todos-sort-search',
   templateUrl: './todos-sort-search.component.html',
-  styleUrls: ['./todos-sort-search.component.css']
+  styleUrls: ['./todos-sort-search.component.css'],
 })
 export class TodosSortSearchComponent implements OnInit {
+  tasks: TaskAppearance[];
 
-  tasks: TaskAppearance[]
+  disable: string = '';
 
-
-  disable: string = ''
-
-  constructor(private todos: TodosService) {
-  }
+  constructor(private todos: TodosService) {}
 
   ngOnInit(): void {
-    this.todos.returnStream().subscribe(v => {
-      this.tasks = v
-      if(v.length < 2){
-        this.disable='disable'
+    this.todos.returnStream().subscribe((v) => {
+      this.tasks = v;
+      if (v.length < 2) {
+        this.disable = 'disable';
       }
-      if(v.length > 1){
-        this.disable=''
+      if (v.length > 1) {
+        this.disable = '';
       }
-    })
+    });
   }
 
-  sortIndex(): void{
-    this.todos.sortIndex()
+  sortIndex(): void {
+    this.todos.sortIndex();
   }
-  sortDate(): void{
-    this.todos.sortDate()
+  sortDate(): void {
+    this.todos.sortDate();
   }
-  sortCompleted(): void{
-    this.todos.sortCompleted()
+  sortCompleted(): void {
+    this.todos.sortCompleted();
   }
 
   searchTask(e: any): void {
-    this.todos.nextSearch(e.target.value)
+    this.todos.nextSearch(e.target.value);
   }
-
 }

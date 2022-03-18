@@ -1,15 +1,15 @@
 <div class="search-sortBlock">
   <div class="search">
-    <input type="text" placeholder="Serch task" (input)="searchTask($event)" >
+    <input type="text" placeholder="Serch task" (input)="searchTask($event)" />
   </div>
   <div class="sort">
     <p>Sort task:</p>
     <div>
-      <button (click)="sortIndex()" disabled="{{disable}}">Index</button>
-      <button (click)="sortDate()" disabled="{{disable}}">Date</button>
-      <button (click)="sortCompleted()" disabled="{{disable}}">Completed</button>
+      <button (click)="sortIndex()" disabled="{{ disable }}">Index</button>
+      <button (click)="sortDate()" disabled="{{ disable }}">Date</button>
+      <button (click)="sortCompleted()" disabled="{{ disable }}">
+        Completed
+      </button>
     </div>
   </div>
 </div>
-
-
